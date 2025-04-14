@@ -12,17 +12,16 @@ func (c *CreateLobbyCmd) Run(ctx AppContext) error {
 
 type JoinLobbyCmd struct {
 	Player string `arg:"" name:"lobby" help:"Name of the player joining"`
-	Lobby string `arg:"" name:"lobby" help:"Name of the lobby to join"`
+	Lobby  string `arg:"" name:"lobby" help:"Name of the lobby to join"`
 }
 
 func (c *JoinLobbyCmd) Run(ctx AppContext) error {
 	return ctx.Cache.JoinLobby(context.Background(), c.Player, c.Lobby)
 }
 
-
 type LeaveLobbyCmd struct {
 	Player string `arg:"" name:"lobby" help:"Name of the player joining"`
-	Lobby string `arg:"" name:"lobby" help:"Name of the lobby to join"`
+	Lobby  string `arg:"" name:"lobby" help:"Name of the lobby to join"`
 }
 
 func (c *LeaveLobbyCmd) Run(ctx AppContext) error {

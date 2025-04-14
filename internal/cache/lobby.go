@@ -33,11 +33,10 @@ func (c Cache) JoinLobby(ctx context.Context, player string, lobby string) error
 	return nil
 }
 
-
 func (c Cache) LeaveLobby(ctx context.Context, player string, lobby string) error {
 	lobbyKey := fmt.Sprintf("lobby:%s", lobby)
 	playerItem := fmt.Sprintf("player:%s", player)
-	
+
 	res, err := c.Client.SRem(ctx, lobbyKey, playerItem).Result()
 	if err != nil {
 		return err
@@ -45,4 +44,3 @@ func (c Cache) LeaveLobby(ctx context.Context, player string, lobby string) erro
 	fmt.Print(res)
 	return nil
 }
-

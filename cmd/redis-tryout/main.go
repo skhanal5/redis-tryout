@@ -9,7 +9,6 @@ import (
 	"github.com/skhanal5/redis-tryout/internal/command"
 )
 
-
 func main() {
 	config := &internal.Options{}
 	flag.StringVar(&config.RedisAddr, "host", "localhost", "Redis server host")
