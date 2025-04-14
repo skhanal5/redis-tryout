@@ -6,8 +6,8 @@ vet:
 fmt:
 	go fmt ./...
 
-build: clean
-	go build cmd/redis-tryout/main.go
+build:
+	go build -o redis-tryout cmd/redis-tryout/main.go
 
 test:
 	go test ./...
