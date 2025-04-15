@@ -11,12 +11,14 @@ import (
 
 func main() {
 	config := &internal.Options{}
-	flag.StringVar(&config.RedisAddr, "host", "localhost", "Redis server host")
+	flag.StringVar(&config.RedisAddr, "RedisHost", "localhost:6379", "Redis server host")
 	client := cache.NewCache(*config)
-	cliCtx := &command.AppContext{
+	cliCtx := command.AppContext{
 		Cache: &client,
 	}
+	// Bind the AppContext to the kong parser
 	ctx := kong.Parse(&command.Commands{})
+	ctx.Bind(cliCtx)
 	err := ctx.Run(cliCtx)
 	ctx.FatalIfErrorf(err)
 }
