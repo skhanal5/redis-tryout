@@ -6,9 +6,20 @@ import (
 )
 
 type LobbyManager interface {
+	ViewLobby(ctx context.Context, name string) error
 	CreateLobby(ctx context.Context, name string) error
 	JoinLobby(ctx context.Context, player string, lobby string) error
 	LeaveLobby(ctx context.Context, player string, lobby string) error
+}
+
+func (c Cache) ViewLobby(ctx context.Context, name string) error {
+	lobbyKey := fmt.Sprintf("lobby:%s", name)
+	res, err := c.Client.SMembers(ctx, lobbyKey).Result()
+	if err != nil {
+		return err
+	}
+	fmt.Print(res)
+	return nil
 }
 
 func (c Cache) CreateLobby(ctx context.Context, name string) error {

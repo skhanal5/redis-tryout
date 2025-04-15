@@ -2,8 +2,16 @@ package command
 
 import "context"
 
+type ViewLobbyCmd struct {
+	Lobby string `required:"" name:"lobby" help:"Name of the lobby to create"`
+}
+
+func (c *ViewLobbyCmd) Run(ctx AppContext) error {
+	return ctx.Cache.ViewLobby(context.Background(), c.Lobby)
+}
+
 type CreateLobbyCmd struct {
-	Lobby string `arg:"" name:"lobby" help:"Name of the lobby to create"`
+	Lobby string `required:"" name:"lobby" help:"Name of the lobby to create"`
 }
 
 func (c *CreateLobbyCmd) Run(ctx AppContext) error {
@@ -11,8 +19,8 @@ func (c *CreateLobbyCmd) Run(ctx AppContext) error {
 }
 
 type JoinLobbyCmd struct {
-	Player string `arg:"" name:"lobby" help:"Name of the player joining"`
-	Lobby  string `arg:"" name:"lobby" help:"Name of the lobby to join"`
+	Player string `required:"" help:"Name of the player joining"`
+	Lobby  string `required:"" help:"Name of the lobby to join"`
 }
 
 func (c *JoinLobbyCmd) Run(ctx AppContext) error {
@@ -20,8 +28,8 @@ func (c *JoinLobbyCmd) Run(ctx AppContext) error {
 }
 
 type LeaveLobbyCmd struct {
-	Player string `arg:"" name:"lobby" help:"Name of the player joining"`
-	Lobby  string `arg:"" name:"lobby" help:"Name of the lobby to join"`
+	Player string `required:"" help:"Name of the player joining"`
+	Lobby  string `required:""  help:"Name of the lobby to leav"`
 }
 
 func (c *LeaveLobbyCmd) Run(ctx AppContext) error {
